@@ -1,0 +1,138 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Techno Anomaly</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script type="text/javascript" src="http://widgets.wp.com/platform.js"></script>
+</head>
+<body>
+	<div id="background">
+		<div id="header">
+			<div>
+				<div>
+					<a href="index.html" class="logo"><img src="images/logo2.png" alt=""></a>
+					<ul>
+						<li class="selected">
+							<a href="index.html" id="menu1">home</a>
+						</li>
+						<li>
+							<a href="Nope.html" id="menu2">PlaceHolder</a>
+						</li>
+						<li>
+							<a href="RPGs.html" id="menu3">RPGs</a>
+						</li>
+						<li>
+							<a href="about.html" id="menu4">about</a>
+						</li>
+						<li>
+							<a href="http://rhyvinsrpg.wordpress.com/" id="menu5">blog</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="body">
+			<div>
+				<div>
+					<div class="featured">
+						<img src="images/Front.png" alt="">
+					</div>
+					<div class="section">
+						<div>
+							<h3>Recent Blog post here</h3>
+							<div>
+								<p>
+<?PHP
+  // define script parameters
+  $BLOGURL    = "http://rhyvinsrpgs.wordpress.com/feed";
+  $NUMITEMS   = 2;
+  $TIMEFORMAT = "j F Y, g:ia";
+  $CACHEFILE  = "/tmp/" . md5($BLOGURL);
+  $CACHETIME  = 4; // hours
+
+  // download the feed iff a cached version is missing or too old
+  if(!file_exists($CACHEFILE) || ((time() - filemtime($CACHEFILE)) > 3600 * $CACHETIME)) {
+    if($feed_contents = http_get_contents($BLOGURL)) {
+      // write feed contents to cache file
+      $fp = fopen($CACHEFILE, 'w');
+      fwrite($fp, $feed_contents);
+      fclose($fp);
+    }
+  }
+
+  include "class.myrssparser.php";
+  $rss_parser = new myRSSParser($CACHEFILE);
+
+  // read feed data from cache file
+  $feeddata = $rss_parser->getRawOutput();
+  extract($feeddata['RSS']['CHANNEL'][0], EXTR_PREFIX_ALL, 'rss');
+
+  // display leading image
+  if(isset($rss_IMAGE[0]) && $rss_IMAGE[0]) {
+    extract($rss_IMAGE[0], EXTR_PREFIX_ALL, 'img');
+    echo "<p><a title=\"{$img_TITLE}\" href=\"{$img_LINK}\"><img src=\"{$img_URL}\" alt=\"\"></a></p>\n";
+  }
+
+  // display feed title
+  echo "<h4><a title=\"",htmlspecialchars($rss_DESCRIPTION),"\" href=\"{$rss_LINK}\" target=\"_blank\">";
+  echo htmlspecialchars($rss_TITLE);
+  echo "</a></h4>\n";
+
+  // display feed items
+  $count = 0;
+  foreach($rss_ITEM as $itemdata) {
+    echo "<p><b><a href=\"{$itemdata['LINK']}\" target=\"_blank\">";
+    echo htmlspecialchars(stripslashes($itemdata['TITLE']));
+    echo "</a></b><br>\n";
+    echo htmlspecialchars(stripslashes($itemdata['DESCRIPTION'])),"<br>\n";
+    echo "<i>",date($TIMEFORMAT, strtotime($itemdata['PUBDATE'])),"</i></p>\n\n";
+    if(++$count >= $NUMITEMS) break;
+  }
+
+  // display copyright information
+  echo "<p><small>&copy; {",htmlspecialchars($rss_COPYRIGHT),"}</small></p>\n";
+?>
+								</p>
+							</div>
+						</div>
+						<div>
+							<h3>RPGs</h3>
+							<div>
+								<a href="RPGs.html" class="figure"><img src="images/RPGicon.jpg" alt=""></a>
+								<span><a href="RPGs.html">P&P games on the web!</a></span>
+							</div>
+						</div>
+						<div>
+							<h3>Place Holder</h3>
+							<div>
+								<a href="PlaceHolder.html" class="figure"><img src="images/media1.jpg" alt=""></a>
+								<span><a href="PlaceHolder.html">This is just a place holder</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div>
+				<ul>
+					<li id="facebook">
+						<a href="https://www.facebook.com/RhyvinsRPG">facebook</a>
+					</li>
+					<li id="twitter">
+						<a href="https://twitter.com/RhyvinsRPGs">twitter</a>
+					</li>
+					<li id="googleplus">
+						<a href="nope.com">googleplus</a>
+					</li>
+				</ul>
+				<p>
+					@ copyright 2014. all rights reserved.
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
