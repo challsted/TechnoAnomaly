@@ -1,0 +1,153 @@
+
+<!DOCTYPE HTML>
+<!-- Website Template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Blog - Game Website Template</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<?php wp_get_archives("type=postbypost&limit=20"); ?>
+</head>
+<body>
+	<div id="background">
+		<div id="header">
+			<div>
+				<div>
+					<a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
+					<ul>
+						<li>
+							<a href="index.html" id="menu1">home</a>
+						</li>
+						<li>
+							<a href="media.html" id="menu2">media</a>
+						</li>
+						<li>
+							<a href="games.html" id="menu3">games</a>
+						</li>
+						<li>
+							<a href="about.html" id="menu4">about</a>
+						</li>
+						<li class="selected">
+							<a href="blog.html" id="menu5">blog</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="body">
+			<div>
+				<div>
+					<div class="blog">
+						<div class="content">
+							<ul>
+								<li>
+									
+									
+										
+										
+<?php 
+$host="romanpi.technoanomlay.com"; 
+$username="root"; 
+$password="Vinson0)"; 
+$database="ta_wordpress"; 
+mysql_connect($host,$username,$password); 
+@mysql_select_db($database) or die( "Unable to select database"); 
+/* WP MySQL query */ 
+$query = "SELECT *, DATE_FORMAT(post_date, '%Y-%m-%d %k:%i') AS post_date, DATE_FORMAT(post_modified, '%Y-%m-%d %k:%i') AS post_modified FROM wp_posts WHERE post_status = 'publish' ORDER BY id DESC LIMIT 1"; 
+$result = mysql_query ($query) or die (mysql_error()); 
+while ($row = mysql_fetch_array($result)) 
+{ 
+$date = $row['post_date']; 
+$modified = $row['post_modified']; 
+$title = $row['post_title']; 
+$excerpt = $row['post_excerpt']; 
+$id = $row['post_author']; 
+$link = $row['guid']; 
+} 
+$query2 = "SELECT display_name FROM wp_users WHERE ID=$id"; 
+$result2 = mysql_query ($query2) or die (mysql_error()); 
+while ($row2 = mysql_fetch_array($result2)) 
+{ 
+$author = $row2['display_name']; 
+} 
+?> 
+Last Updated: <?php echo "$modified"; ?><br> 
+<?php echo "$title"; ?><br> 
+Author: <?php echo "$author"; ?><br> 
+<a href='<?php echo "$link" ?;><img border=0 src="http://romanpi.technoanomaly.com/images/more.jpg" alt="more" width="60" height="18" /></a> 
+
+									
+								</li>
+								<li>
+									<div class="header">
+										<b>This is just a place holder</b><span><a href="#">july 2012</a><a href="#">name</a></span>
+									</div>
+									<div class="article">
+										<a href="" class="figure"><img src="images/blog2.jpg" alt=""></a>
+										<p>
+											What’s more, they’re absolutely free! <br> You can do a lot with them. You can modify them. You can modify them. You can use them to design websites for clients, so long as you agree with the <a href="http://www.freewebsitetemplates.com/about/terms">Terms of Use</a>.<br><a href="blog.html" class="more">read more</a>
+										</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="sidebar">
+							<div>
+								<span><a href="#" class="selected">popular post</a></span> <span><a href="#">recent post</a></span>
+							</div>
+							<ul>
+								<li>
+									<a href="#">This is just a place holder</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is  a free website template</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is just a place holder</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is just a place holder, so you can see what the site would look like.</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is just a place holder</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is just a place holder, so you can see what the site would look like.</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+								<li>
+									<a href="">This is just a place holder, so you can see what the site would look like.</a>
+									<span><a href="#">july 2012</a><a href="#">name</a></span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div>
+				<ul>
+					<li id="facebook">
+						<a href="http://freewebsitetemplates.com/go/facebook/">facebook</a>
+					</li>
+					<li id="twitter">
+						<a href="http://freewebsitetemplates.com/go/twitter/">twitter</a>
+					</li>
+					<li id="googleplus">
+						<a href="http://freewebsitetemplates.com/go/googleplus/">googleplus</a>
+					</li>
+				</ul>
+				<p>
+					@ copyright 2012. all rights reserved.
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
