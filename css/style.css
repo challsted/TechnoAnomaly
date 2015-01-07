@@ -1,5 +1,4 @@
-/*Website Template by freewebsitetemplates.com*/
-@font-face {
+﻿@font-face {
 	font-family: 'Philosopher-Regular';
 	src: url('../fonts/Philosopher-Regular/Philosopher-Regular.eot');
 	src: url('../fonts/Philosopher-Regular/Philosopher-Regular.woff') format('woff'), url('../fonts/Philosopher-Regular/Philosopher-Regular.ttf') format('truetype'), url('../fonts/Philosopher-Regular/Philosopher-Regular.svg') format('svg');
@@ -845,4 +844,8 @@ body {
 	padding: 0;
 	text-align: center;
 	text-transform: capitalize;
+}
+#image {
+	position: relative;
+	left: -20px;
 }
